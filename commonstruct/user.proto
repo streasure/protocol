@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package commonstruct;
+
+option go_package = "./commonstruct";
+
+message UserInfo {
+    string                          uuid                      = 1;
+    string                          nickName                  = 2;
+    int32                           curAvatarId               = 3;
+    map<int32, int64>               items                     = 4;
+}

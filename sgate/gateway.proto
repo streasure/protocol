@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package sgate;
+
+option go_package = "./sgate";
+
+import "commonstruct/message.proto";
+
+service GatewayService {
+    rpc StreamMessages (stream commonstruct.Message) returns (stream commonstruct.Message);
+    rpc SendMessage (commonstruct.Message) returns (commonstruct.Message);
+}
