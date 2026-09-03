@@ -33,7 +33,11 @@ enum Cmd {
     CMD_ANNOUNCEMENT = 1000007;
     CMD_CHAT_MSG = 1000008;
     CMD_KICK_NOTIFY = 1000009;
+    CMD_HEARTBEAT_REQ = 1000010;
+    CMD_HEARTBEAT_ACK = 1000011;
+    CMD_USER_OFFLINE_NTF = 1000012;
 
     // sgate messages (2,000,000 - 2,999,999)
-    // GatewayService gRPC - skipped per requirement
+    CMD_LOGIN_GATE_REQ = 2000001;
+    CMD_LOGIN_GATE_ACK = 2000002;
 }

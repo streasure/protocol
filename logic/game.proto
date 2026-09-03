@@ -6,6 +6,22 @@ option go_package = "github.com/streasure/protocol/logic";
 
 import "commonstruct/user.proto";
 
+// LoginGateReq is handled by sgate only. It selects and binds the target logic
+// server before any business request is forwarded.
+message LoginGateReq {
+    string server_id = 1;
+    string user_id = 2;
+    string login_key = 3;
+    string zone = 4;
+}
+
+message LoginGateAck {
+    int32 code = 1;
+    string message = 2;
+    string session_id = 3;
+    string server_id = 4;
+}
+
 message LoginReq {
     string userId       = 1;
     string loginKey     = 2;
@@ -28,6 +44,7 @@ message LoginAck {
     BanInfo        banInfo        = 6;
     int64          offlineTime    = 7;
     repeated int32 funcDisabled   = 8;
+    string user_key               = 9;
 }
 
 message LogoutReq {
@@ -56,4 +73,13 @@ message HeartbeatReq {
 message HeartbeatAck {
     int64 server_time = 1;
     int64 rtt_ms      = 2;
+}
+
+// UserOfflineNtf is sent by sgate to the bound logic server when a client
+// connection closes without a business logout request.
+message UserOfflineNtf {
+    string session_id = 1;
+    string user_key = 2;
+    string server_id = 3;
+    int64 offline_time = 4;
 }
