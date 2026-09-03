@@ -1,4 +1,4 @@
-package sgate
+package gateway
 
 import (
 	"hash/fnv"

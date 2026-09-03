@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package logic;
 
-option go_package = "./logic";
+option go_package = "github.com/streasure/protocol/logic";
 
 import "commonstruct/user.proto";
 

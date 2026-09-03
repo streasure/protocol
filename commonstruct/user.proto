@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package commonstruct;
 
-option go_package = "./commonstruct";
+option go_package = "github.com/streasure/protocol/commonstruct";
 
 message UserInfo {
     string                          uuid                      = 1;
