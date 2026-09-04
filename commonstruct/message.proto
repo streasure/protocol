@@ -4,24 +4,6 @@ package commonstruct;
 
 option go_package = "github.com/streasure/protocol/commonstruct";
 
-message Message {
-    string              connection_id    = 1;
-    string              user_uuid        = 2;
-    string              route            = 3;
-    int32               cmd              = 4;
-    bytes               data             = 5;
-    int64               timestamp        = 6;
-    string              checksum         = 7;
-    bytes               signature        = 8;
-    int64               sequence         = 9;
-    bool                require_ack      = 10;
-    int32               compression      = 11;
-    int32               original_size    = 12;
-    int32               compressed_size  = 13;
-    string              protocol_version = 14;
-    map<string, string> payload          = 15;
-}
-
 message ErrorResponse {
     string    route            = 1;
     int32     cmd              = 2;

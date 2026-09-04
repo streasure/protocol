@@ -4,18 +4,25 @@ package gateway;
 
 option go_package = "github.com/streasure/protocol/gateway";
 
-// MessageFrame is the common client wire envelope. The body is the
-// serialized business protobuf selected by cmd.
+// ---- Client <-> Gateway wire protocol ----
+
 message MessageFrame {
     int32 cmd    = 1;
     int64 seq_id = 2;
     bytes body   = 99;
 }
 
-// ---- Gateway <-> Logic streaming ----
+message LoginGateReq {
+    string server_id = 1;
+    string user_id   = 2;
+    string login_key = 3;
+}
 
-service GatewayStream {
-    rpc onData(stream StreamData) returns (stream StreamData);
+message LoginGateAck {
+    int32  code       = 1;
+    string message    = 2;
+    string session_id = 3;
+    string server_id  = 4;
 }
 
 message StreamData {
@@ -25,9 +32,82 @@ message StreamData {
     int64  seq_id     = 4;
     bytes  data       = 5;
     string client_ip  = 6;
-    string route      = 7;
-    int64  timestamp  = 8;
-    map<string, string> payload      = 9;
-    string checksum           = 10;
-    string protocol_version   = 11;
+}
+
+service GatewayStream {
+    rpc onData(stream StreamData) returns (stream StreamData);
+}
+
+// ---- Logic -> Gateway gRPC service (server-internal) ----
+
+service Gateway {
+    rpc CloseSession(CloseSessionReq)   returns (CloseSessionAck);
+    rpc KickSession(KickSessionReq)     returns (KickSessionAck);
+    rpc SendToClient(SendToClientReq)   returns (SendToClientAck);
+    rpc Broadcast(BroadcastReq)         returns (BroadcastAck);
+    rpc BroadcastAll(BroadcastAllReq)   returns (BroadcastAllAck);
+    rpc JoinGroup(JoinGroupReq)         returns (JoinGroupAck);
+    rpc LeaveGroup(LeaveGroupReq)       returns (LeaveGroupAck);
+    rpc GetGroupInfo(GetGroupInfoReq)   returns (GetGroupInfoAck);
+}
+
+message CloseSessionReq {
+    string session_id = 1;
+    int32  reason     = 2;
+    string msg        = 3;
+}
+message CloseSessionAck {}
+
+message KickSessionReq {
+    string session_id = 1;
+    string reason     = 2;
+    int32  code       = 3;
+}
+message KickSessionAck {}
+
+message SendToClientReq {
+    string session_id = 1;
+    int32  cmd        = 2;
+    bytes  data       = 3;
+}
+message SendToClientAck {}
+
+message BroadcastReq {
+    repeated string group_id = 1;
+    int32  cmd               = 2;
+    bytes  data              = 3;
+}
+message BroadcastAck {}
+
+message BroadcastAllReq {
+    int32 cmd  = 1;
+    bytes data = 2;
+}
+message BroadcastAllAck {}
+
+message JoinGroupReq {
+    string session_id        = 1;
+    repeated string group_id = 2;
+}
+message JoinGroupAck {
+    int32  code         = 1;
+    repeated int32 member_count = 2;
+}
+
+message LeaveGroupReq {
+    string session_id        = 1;
+    repeated string group_id = 2;
+}
+message LeaveGroupAck {
+    int32  code         = 1;
+    repeated int32 member_count = 2;
+}
+
+message GetGroupInfoReq {
+    string group_id = 1;
+}
+message GetGroupInfoAck {
+    string group_id            = 1;
+    int32  member_count        = 2;
+    repeated string session_ids = 3;
 }

@@ -6,22 +6,6 @@ option go_package = "github.com/streasure/protocol/logic";
 
 import "commonstruct/user.proto";
 
-// LoginGateReq is handled by sgate only. It selects and binds the target logic
-// server before any business request is forwarded.
-message LoginGateReq {
-    string server_id = 1;
-    string user_id = 2;
-    string login_key = 3;
-    string zone = 4;
-}
-
-message LoginGateAck {
-    int32 code = 1;
-    string message = 2;
-    string session_id = 3;
-    string server_id = 4;
-}
-
 message LoginReq {
     string userId       = 1;
     string loginKey     = 2;

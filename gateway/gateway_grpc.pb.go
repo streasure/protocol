@@ -139,3 +139,352 @@ var GatewayStream_ServiceDesc = grpc.ServiceDesc{
 	},
 	Metadata: "gateway/gateway.proto",
 }
+
+const (
+	Gateway_CloseSession_FullMethodName = "/gateway.Gateway/CloseSession"
+	Gateway_KickSession_FullMethodName  = "/gateway.Gateway/KickSession"
+	Gateway_SendToClient_FullMethodName = "/gateway.Gateway/SendToClient"
+	Gateway_Broadcast_FullMethodName    = "/gateway.Gateway/Broadcast"
+	Gateway_BroadcastAll_FullMethodName = "/gateway.Gateway/BroadcastAll"
+	Gateway_JoinGroup_FullMethodName    = "/gateway.Gateway/JoinGroup"
+	Gateway_LeaveGroup_FullMethodName   = "/gateway.Gateway/LeaveGroup"
+	Gateway_GetGroupInfo_FullMethodName = "/gateway.Gateway/GetGroupInfo"
+)
+
+// GatewayClient is the client API for Gateway service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type GatewayClient interface {
+	CloseSession(ctx context.Context, in *CloseSessionReq, opts ...grpc.CallOption) (*CloseSessionAck, error)
+	KickSession(ctx context.Context, in *KickSessionReq, opts ...grpc.CallOption) (*KickSessionAck, error)
+	SendToClient(ctx context.Context, in *SendToClientReq, opts ...grpc.CallOption) (*SendToClientAck, error)
+	Broadcast(ctx context.Context, in *BroadcastReq, opts ...grpc.CallOption) (*BroadcastAck, error)
+	BroadcastAll(ctx context.Context, in *BroadcastAllReq, opts ...grpc.CallOption) (*BroadcastAllAck, error)
+	JoinGroup(ctx context.Context, in *JoinGroupReq, opts ...grpc.CallOption) (*JoinGroupAck, error)
+	LeaveGroup(ctx context.Context, in *LeaveGroupReq, opts ...grpc.CallOption) (*LeaveGroupAck, error)
+	GetGroupInfo(ctx context.Context, in *GetGroupInfoReq, opts ...grpc.CallOption) (*GetGroupInfoAck, error)
+}
+
+type gatewayClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewGatewayClient(cc grpc.ClientConnInterface) GatewayClient {
+	return &gatewayClient{cc}
+}
+
+func (c *gatewayClient) CloseSession(ctx context.Context, in *CloseSessionReq, opts ...grpc.CallOption) (*CloseSessionAck, error) {
+	out := new(CloseSessionAck)
+	err := c.cc.Invoke(ctx, Gateway_CloseSession_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) KickSession(ctx context.Context, in *KickSessionReq, opts ...grpc.CallOption) (*KickSessionAck, error) {
+	out := new(KickSessionAck)
+	err := c.cc.Invoke(ctx, Gateway_KickSession_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) SendToClient(ctx context.Context, in *SendToClientReq, opts ...grpc.CallOption) (*SendToClientAck, error) {
+	out := new(SendToClientAck)
+	err := c.cc.Invoke(ctx, Gateway_SendToClient_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) Broadcast(ctx context.Context, in *BroadcastReq, opts ...grpc.CallOption) (*BroadcastAck, error) {
+	out := new(BroadcastAck)
+	err := c.cc.Invoke(ctx, Gateway_Broadcast_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) BroadcastAll(ctx context.Context, in *BroadcastAllReq, opts ...grpc.CallOption) (*BroadcastAllAck, error) {
+	out := new(BroadcastAllAck)
+	err := c.cc.Invoke(ctx, Gateway_BroadcastAll_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) JoinGroup(ctx context.Context, in *JoinGroupReq, opts ...grpc.CallOption) (*JoinGroupAck, error) {
+	out := new(JoinGroupAck)
+	err := c.cc.Invoke(ctx, Gateway_JoinGroup_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) LeaveGroup(ctx context.Context, in *LeaveGroupReq, opts ...grpc.CallOption) (*LeaveGroupAck, error) {
+	out := new(LeaveGroupAck)
+	err := c.cc.Invoke(ctx, Gateway_LeaveGroup_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) GetGroupInfo(ctx context.Context, in *GetGroupInfoReq, opts ...grpc.CallOption) (*GetGroupInfoAck, error) {
+	out := new(GetGroupInfoAck)
+	err := c.cc.Invoke(ctx, Gateway_GetGroupInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GatewayServer is the server API for Gateway service.
+// All implementations must embed UnimplementedGatewayServer
+// for forward compatibility
+type GatewayServer interface {
+	CloseSession(context.Context, *CloseSessionReq) (*CloseSessionAck, error)
+	KickSession(context.Context, *KickSessionReq) (*KickSessionAck, error)
+	SendToClient(context.Context, *SendToClientReq) (*SendToClientAck, error)
+	Broadcast(context.Context, *BroadcastReq) (*BroadcastAck, error)
+	BroadcastAll(context.Context, *BroadcastAllReq) (*BroadcastAllAck, error)
+	JoinGroup(context.Context, *JoinGroupReq) (*JoinGroupAck, error)
+	LeaveGroup(context.Context, *LeaveGroupReq) (*LeaveGroupAck, error)
+	GetGroupInfo(context.Context, *GetGroupInfoReq) (*GetGroupInfoAck, error)
+	mustEmbedUnimplementedGatewayServer()
+}
+
+// UnimplementedGatewayServer must be embedded to have forward compatible implementations.
+type UnimplementedGatewayServer struct {
+}
+
+func (UnimplementedGatewayServer) CloseSession(context.Context, *CloseSessionReq) (*CloseSessionAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CloseSession not implemented")
+}
+func (UnimplementedGatewayServer) KickSession(context.Context, *KickSessionReq) (*KickSessionAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method KickSession not implemented")
+}
+func (UnimplementedGatewayServer) SendToClient(context.Context, *SendToClientReq) (*SendToClientAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendToClient not implemented")
+}
+func (UnimplementedGatewayServer) Broadcast(context.Context, *BroadcastReq) (*BroadcastAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Broadcast not implemented")
+}
+func (UnimplementedGatewayServer) BroadcastAll(context.Context, *BroadcastAllReq) (*BroadcastAllAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BroadcastAll not implemented")
+}
+func (UnimplementedGatewayServer) JoinGroup(context.Context, *JoinGroupReq) (*JoinGroupAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JoinGroup not implemented")
+}
+func (UnimplementedGatewayServer) LeaveGroup(context.Context, *LeaveGroupReq) (*LeaveGroupAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LeaveGroup not implemented")
+}
+func (UnimplementedGatewayServer) GetGroupInfo(context.Context, *GetGroupInfoReq) (*GetGroupInfoAck, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGroupInfo not implemented")
+}
+func (UnimplementedGatewayServer) mustEmbedUnimplementedGatewayServer() {}
+
+// UnsafeGatewayServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to GatewayServer will
+// result in compilation errors.
+type UnsafeGatewayServer interface {
+	mustEmbedUnimplementedGatewayServer()
+}
+
+func RegisterGatewayServer(s grpc.ServiceRegistrar, srv GatewayServer) {
+	s.RegisterService(&Gateway_ServiceDesc, srv)
+}
+
+func _Gateway_CloseSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CloseSessionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).CloseSession(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_CloseSession_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).CloseSession(ctx, req.(*CloseSessionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_KickSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(KickSessionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).KickSession(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_KickSession_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).KickSession(ctx, req.(*KickSessionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_SendToClient_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendToClientReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).SendToClient(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_SendToClient_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).SendToClient(ctx, req.(*SendToClientReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_Broadcast_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BroadcastReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).Broadcast(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_Broadcast_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).Broadcast(ctx, req.(*BroadcastReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_BroadcastAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BroadcastAllReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).BroadcastAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_BroadcastAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).BroadcastAll(ctx, req.(*BroadcastAllReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_JoinGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(JoinGroupReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).JoinGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_JoinGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).JoinGroup(ctx, req.(*JoinGroupReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_LeaveGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LeaveGroupReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).LeaveGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_LeaveGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).LeaveGroup(ctx, req.(*LeaveGroupReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_GetGroupInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGroupInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).GetGroupInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_GetGroupInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).GetGroupInfo(ctx, req.(*GetGroupInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Gateway_ServiceDesc is the grpc.ServiceDesc for Gateway service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Gateway_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "gateway.Gateway",
+	HandlerType: (*GatewayServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CloseSession",
+			Handler:    _Gateway_CloseSession_Handler,
+		},
+		{
+			MethodName: "KickSession",
+			Handler:    _Gateway_KickSession_Handler,
+		},
+		{
+			MethodName: "SendToClient",
+			Handler:    _Gateway_SendToClient_Handler,
+		},
+		{
+			MethodName: "Broadcast",
+			Handler:    _Gateway_Broadcast_Handler,
+		},
+		{
+			MethodName: "BroadcastAll",
+			Handler:    _Gateway_BroadcastAll_Handler,
+		},
+		{
+			MethodName: "JoinGroup",
+			Handler:    _Gateway_JoinGroup_Handler,
+		},
+		{
+			MethodName: "LeaveGroup",
+			Handler:    _Gateway_LeaveGroup_Handler,
+		},
+		{
+			MethodName: "GetGroupInfo",
+			Handler:    _Gateway_GetGroupInfo_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "gateway/gateway.proto",
+}

@@ -20,8 +20,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// MessageFrame is the common client wire envelope. The body is the
-// serialized business protobuf selected by cmd.
 type MessageFrame struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -85,28 +83,157 @@ func (x *MessageFrame) GetBody() []byte {
 	return nil
 }
 
+type LoginGateReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ServerId string `protobuf:"bytes,1,opt,name=server_id,json=serverId,proto3" json:"server_id,omitempty"`
+	UserId   string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	LoginKey string `protobuf:"bytes,3,opt,name=login_key,json=loginKey,proto3" json:"login_key,omitempty"`
+}
+
+func (x *LoginGateReq) Reset() {
+	*x = LoginGateReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoginGateReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginGateReq) ProtoMessage() {}
+
+func (x *LoginGateReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginGateReq.ProtoReflect.Descriptor instead.
+func (*LoginGateReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *LoginGateReq) GetServerId() string {
+	if x != nil {
+		return x.ServerId
+	}
+	return ""
+}
+
+func (x *LoginGateReq) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *LoginGateReq) GetLoginKey() string {
+	if x != nil {
+		return x.LoginKey
+	}
+	return ""
+}
+
+type LoginGateAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code      int32  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message   string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	SessionId string `protobuf:"bytes,3,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	ServerId  string `protobuf:"bytes,4,opt,name=server_id,json=serverId,proto3" json:"server_id,omitempty"`
+}
+
+func (x *LoginGateAck) Reset() {
+	*x = LoginGateAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LoginGateAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginGateAck) ProtoMessage() {}
+
+func (x *LoginGateAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginGateAck.ProtoReflect.Descriptor instead.
+func (*LoginGateAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *LoginGateAck) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *LoginGateAck) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *LoginGateAck) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *LoginGateAck) GetServerId() string {
+	if x != nil {
+		return x.ServerId
+	}
+	return ""
+}
+
 type StreamData struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SessionId       string            `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
-	UserKey         string            `protobuf:"bytes,2,opt,name=user_key,json=userKey,proto3" json:"user_key,omitempty"`
-	Cmd             int32             `protobuf:"varint,3,opt,name=cmd,proto3" json:"cmd,omitempty"`
-	SeqId           int64             `protobuf:"varint,4,opt,name=seq_id,json=seqId,proto3" json:"seq_id,omitempty"`
-	Data            []byte            `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
-	ClientIp        string            `protobuf:"bytes,6,opt,name=client_ip,json=clientIp,proto3" json:"client_ip,omitempty"`
-	Route           string            `protobuf:"bytes,7,opt,name=route,proto3" json:"route,omitempty"`
-	Timestamp       int64             `protobuf:"varint,8,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	Payload         map[string]string `protobuf:"bytes,9,rep,name=payload,proto3" json:"payload,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Checksum        string            `protobuf:"bytes,10,opt,name=checksum,proto3" json:"checksum,omitempty"`
-	ProtocolVersion string            `protobuf:"bytes,11,opt,name=protocol_version,json=protocolVersion,proto3" json:"protocol_version,omitempty"`
+	SessionId string `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	UserKey   string `protobuf:"bytes,2,opt,name=user_key,json=userKey,proto3" json:"user_key,omitempty"`
+	Cmd       int32  `protobuf:"varint,3,opt,name=cmd,proto3" json:"cmd,omitempty"`
+	SeqId     int64  `protobuf:"varint,4,opt,name=seq_id,json=seqId,proto3" json:"seq_id,omitempty"`
+	Data      []byte `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+	ClientIp  string `protobuf:"bytes,6,opt,name=client_ip,json=clientIp,proto3" json:"client_ip,omitempty"`
 }
 
 func (x *StreamData) Reset() {
 	*x = StreamData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_gateway_gateway_proto_msgTypes[1]
+		mi := &file_gateway_gateway_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -119,7 +246,7 @@ func (x *StreamData) String() string {
 func (*StreamData) ProtoMessage() {}
 
 func (x *StreamData) ProtoReflect() protoreflect.Message {
-	mi := &file_gateway_gateway_proto_msgTypes[1]
+	mi := &file_gateway_gateway_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -132,7 +259,7 @@ func (x *StreamData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StreamData.ProtoReflect.Descriptor instead.
 func (*StreamData) Descriptor() ([]byte, []int) {
-	return file_gateway_gateway_proto_rawDescGZIP(), []int{1}
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *StreamData) GetSessionId() string {
@@ -177,39 +304,831 @@ func (x *StreamData) GetClientIp() string {
 	return ""
 }
 
-func (x *StreamData) GetRoute() string {
+type CloseSessionReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SessionId string `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Reason    int32  `protobuf:"varint,2,opt,name=reason,proto3" json:"reason,omitempty"`
+	Msg       string `protobuf:"bytes,3,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *CloseSessionReq) Reset() {
+	*x = CloseSessionReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CloseSessionReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CloseSessionReq) ProtoMessage() {}
+
+func (x *CloseSessionReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CloseSessionReq.ProtoReflect.Descriptor instead.
+func (*CloseSessionReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CloseSessionReq) GetSessionId() string {
 	if x != nil {
-		return x.Route
+		return x.SessionId
 	}
 	return ""
 }
 
-func (x *StreamData) GetTimestamp() int64 {
+func (x *CloseSessionReq) GetReason() int32 {
 	if x != nil {
-		return x.Timestamp
+		return x.Reason
 	}
 	return 0
 }
 
-func (x *StreamData) GetPayload() map[string]string {
+func (x *CloseSessionReq) GetMsg() string {
 	if x != nil {
-		return x.Payload
+		return x.Msg
+	}
+	return ""
+}
+
+type CloseSessionAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *CloseSessionAck) Reset() {
+	*x = CloseSessionAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CloseSessionAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CloseSessionAck) ProtoMessage() {}
+
+func (x *CloseSessionAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CloseSessionAck.ProtoReflect.Descriptor instead.
+func (*CloseSessionAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{5}
+}
+
+type KickSessionReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SessionId string `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Reason    string `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
+	Code      int32  `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
+}
+
+func (x *KickSessionReq) Reset() {
+	*x = KickSessionReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *KickSessionReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickSessionReq) ProtoMessage() {}
+
+func (x *KickSessionReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickSessionReq.ProtoReflect.Descriptor instead.
+func (*KickSessionReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *KickSessionReq) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *KickSessionReq) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+func (x *KickSessionReq) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+type KickSessionAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *KickSessionAck) Reset() {
+	*x = KickSessionAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *KickSessionAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickSessionAck) ProtoMessage() {}
+
+func (x *KickSessionAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickSessionAck.ProtoReflect.Descriptor instead.
+func (*KickSessionAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{7}
+}
+
+type SendToClientReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SessionId string `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	Cmd       int32  `protobuf:"varint,2,opt,name=cmd,proto3" json:"cmd,omitempty"`
+	Data      []byte `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *SendToClientReq) Reset() {
+	*x = SendToClientReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendToClientReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendToClientReq) ProtoMessage() {}
+
+func (x *SendToClientReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendToClientReq.ProtoReflect.Descriptor instead.
+func (*SendToClientReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *SendToClientReq) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
+func (x *SendToClientReq) GetCmd() int32 {
+	if x != nil {
+		return x.Cmd
+	}
+	return 0
+}
+
+func (x *SendToClientReq) GetData() []byte {
+	if x != nil {
+		return x.Data
 	}
 	return nil
 }
 
-func (x *StreamData) GetChecksum() string {
+type SendToClientAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SendToClientAck) Reset() {
+	*x = SendToClientAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendToClientAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendToClientAck) ProtoMessage() {}
+
+func (x *SendToClientAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendToClientAck.ProtoReflect.Descriptor instead.
+func (*SendToClientAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{9}
+}
+
+type BroadcastReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GroupId []string `protobuf:"bytes,1,rep,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Cmd     int32    `protobuf:"varint,2,opt,name=cmd,proto3" json:"cmd,omitempty"`
+	Data    []byte   `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *BroadcastReq) Reset() {
+	*x = BroadcastReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BroadcastReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BroadcastReq) ProtoMessage() {}
+
+func (x *BroadcastReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BroadcastReq.ProtoReflect.Descriptor instead.
+func (*BroadcastReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *BroadcastReq) GetGroupId() []string {
 	if x != nil {
-		return x.Checksum
+		return x.GroupId
+	}
+	return nil
+}
+
+func (x *BroadcastReq) GetCmd() int32 {
+	if x != nil {
+		return x.Cmd
+	}
+	return 0
+}
+
+func (x *BroadcastReq) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type BroadcastAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *BroadcastAck) Reset() {
+	*x = BroadcastAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BroadcastAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BroadcastAck) ProtoMessage() {}
+
+func (x *BroadcastAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BroadcastAck.ProtoReflect.Descriptor instead.
+func (*BroadcastAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{11}
+}
+
+type BroadcastAllReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Cmd  int32  `protobuf:"varint,1,opt,name=cmd,proto3" json:"cmd,omitempty"`
+	Data []byte `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *BroadcastAllReq) Reset() {
+	*x = BroadcastAllReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BroadcastAllReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BroadcastAllReq) ProtoMessage() {}
+
+func (x *BroadcastAllReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BroadcastAllReq.ProtoReflect.Descriptor instead.
+func (*BroadcastAllReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *BroadcastAllReq) GetCmd() int32 {
+	if x != nil {
+		return x.Cmd
+	}
+	return 0
+}
+
+func (x *BroadcastAllReq) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type BroadcastAllAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *BroadcastAllAck) Reset() {
+	*x = BroadcastAllAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BroadcastAllAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BroadcastAllAck) ProtoMessage() {}
+
+func (x *BroadcastAllAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BroadcastAllAck.ProtoReflect.Descriptor instead.
+func (*BroadcastAllAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{13}
+}
+
+type JoinGroupReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SessionId string   `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	GroupId   []string `protobuf:"bytes,2,rep,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+}
+
+func (x *JoinGroupReq) Reset() {
+	*x = JoinGroupReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *JoinGroupReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*JoinGroupReq) ProtoMessage() {}
+
+func (x *JoinGroupReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use JoinGroupReq.ProtoReflect.Descriptor instead.
+func (*JoinGroupReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *JoinGroupReq) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
 	}
 	return ""
 }
 
-func (x *StreamData) GetProtocolVersion() string {
+func (x *JoinGroupReq) GetGroupId() []string {
 	if x != nil {
-		return x.ProtocolVersion
+		return x.GroupId
+	}
+	return nil
+}
+
+type JoinGroupAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code        int32   `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	MemberCount []int32 `protobuf:"varint,2,rep,packed,name=member_count,json=memberCount,proto3" json:"member_count,omitempty"`
+}
+
+func (x *JoinGroupAck) Reset() {
+	*x = JoinGroupAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *JoinGroupAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*JoinGroupAck) ProtoMessage() {}
+
+func (x *JoinGroupAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use JoinGroupAck.ProtoReflect.Descriptor instead.
+func (*JoinGroupAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *JoinGroupAck) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *JoinGroupAck) GetMemberCount() []int32 {
+	if x != nil {
+		return x.MemberCount
+	}
+	return nil
+}
+
+type LeaveGroupReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	SessionId string   `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	GroupId   []string `protobuf:"bytes,2,rep,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+}
+
+func (x *LeaveGroupReq) Reset() {
+	*x = LeaveGroupReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LeaveGroupReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LeaveGroupReq) ProtoMessage() {}
+
+func (x *LeaveGroupReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LeaveGroupReq.ProtoReflect.Descriptor instead.
+func (*LeaveGroupReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *LeaveGroupReq) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
 	}
 	return ""
+}
+
+func (x *LeaveGroupReq) GetGroupId() []string {
+	if x != nil {
+		return x.GroupId
+	}
+	return nil
+}
+
+type LeaveGroupAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code        int32   `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	MemberCount []int32 `protobuf:"varint,2,rep,packed,name=member_count,json=memberCount,proto3" json:"member_count,omitempty"`
+}
+
+func (x *LeaveGroupAck) Reset() {
+	*x = LeaveGroupAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LeaveGroupAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LeaveGroupAck) ProtoMessage() {}
+
+func (x *LeaveGroupAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LeaveGroupAck.ProtoReflect.Descriptor instead.
+func (*LeaveGroupAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *LeaveGroupAck) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *LeaveGroupAck) GetMemberCount() []int32 {
+	if x != nil {
+		return x.MemberCount
+	}
+	return nil
+}
+
+type GetGroupInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GroupId string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+}
+
+func (x *GetGroupInfoReq) Reset() {
+	*x = GetGroupInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetGroupInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGroupInfoReq) ProtoMessage() {}
+
+func (x *GetGroupInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGroupInfoReq.ProtoReflect.Descriptor instead.
+func (*GetGroupInfoReq) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetGroupInfoReq) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+type GetGroupInfoAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GroupId     string   `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	MemberCount int32    `protobuf:"varint,2,opt,name=member_count,json=memberCount,proto3" json:"member_count,omitempty"`
+	SessionIds  []string `protobuf:"bytes,3,rep,name=session_ids,json=sessionIds,proto3" json:"session_ids,omitempty"`
+}
+
+func (x *GetGroupInfoAck) Reset() {
+	*x = GetGroupInfoAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gateway_gateway_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetGroupInfoAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGroupInfoAck) ProtoMessage() {}
+
+func (x *GetGroupInfoAck) ProtoReflect() protoreflect.Message {
+	mi := &file_gateway_gateway_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGroupInfoAck.ProtoReflect.Descriptor instead.
+func (*GetGroupInfoAck) Descriptor() ([]byte, []int) {
+	return file_gateway_gateway_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *GetGroupInfoAck) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *GetGroupInfoAck) GetMemberCount() int32 {
+	if x != nil {
+		return x.MemberCount
+	}
+	return 0
+}
+
+func (x *GetGroupInfoAck) GetSessionIds() []string {
+	if x != nil {
+		return x.SessionIds
+	}
+	return nil
 }
 
 var File_gateway_gateway_proto protoreflect.FileDescriptor
@@ -221,40 +1140,132 @@ var file_gateway_gateway_proto_rawDesc = []byte{
 	0x12, 0x10, 0x0a, 0x03, 0x63, 0x6d, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x63,
 	0x6d, 0x64, 0x12, 0x15, 0x0a, 0x06, 0x73, 0x65, 0x71, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x03, 0x52, 0x05, 0x73, 0x65, 0x71, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x62, 0x6f, 0x64,
-	0x79, 0x18, 0x63, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x22, 0x93, 0x03,
-	0x0a, 0x0a, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x12, 0x1d, 0x0a, 0x0a,
-	0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x19, 0x0a, 0x08, 0x75,
-	0x73, 0x65, 0x72, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x75,
-	0x73, 0x65, 0x72, 0x4b, 0x65, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x63, 0x6d, 0x64, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x05, 0x52, 0x03, 0x63, 0x6d, 0x64, 0x12, 0x15, 0x0a, 0x06, 0x73, 0x65, 0x71, 0x5f,
-	0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x73, 0x65, 0x71, 0x49, 0x64, 0x12,
-	0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64,
-	0x61, 0x74, 0x61, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x70,
-	0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x70,
-	0x12, 0x14, 0x0a, 0x05, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x05, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74,
-	0x61, 0x6d, 0x70, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73,
-	0x74, 0x61, 0x6d, 0x70, 0x12, 0x3a, 0x0a, 0x07, 0x70, 0x61, 0x79, 0x6c, 0x6f, 0x61, 0x64, 0x18,
-	0x09, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e,
-	0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x2e, 0x50, 0x61, 0x79, 0x6c, 0x6f,
-	0x61, 0x64, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x07, 0x70, 0x61, 0x79, 0x6c, 0x6f, 0x61, 0x64,
-	0x12, 0x1a, 0x0a, 0x08, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x75, 0x6d, 0x18, 0x0a, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x08, 0x63, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x75, 0x6d, 0x12, 0x29, 0x0a, 0x10,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e,
-	0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c,
-	0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x1a, 0x3a, 0x0a, 0x0c, 0x50, 0x61, 0x79, 0x6c, 0x6f,
-	0x61, 0x64, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c,
-	0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a,
-	0x02, 0x38, 0x01, 0x32, 0x47, 0x0a, 0x0d, 0x47, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x53, 0x74,
-	0x72, 0x65, 0x61, 0x6d, 0x12, 0x36, 0x0a, 0x06, 0x6f, 0x6e, 0x44, 0x61, 0x74, 0x61, 0x12, 0x13,
-	0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x44,
-	0x61, 0x74, 0x61, 0x1a, 0x13, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x53, 0x74,
-	0x72, 0x65, 0x61, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x28, 0x01, 0x30, 0x01, 0x42, 0x27, 0x5a, 0x25,
-	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x74, 0x72, 0x65, 0x61,
-	0x73, 0x75, 0x72, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2f, 0x67, 0x61,
-	0x74, 0x65, 0x77, 0x61, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x79, 0x18, 0x63, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x22, 0x61, 0x0a,
+	0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x47, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x1b, 0x0a,
+	0x09, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x08, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x49, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73,
+	0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x6c, 0x6f, 0x67, 0x69, 0x6e, 0x5f, 0x6b, 0x65, 0x79,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6c, 0x6f, 0x67, 0x69, 0x6e, 0x4b, 0x65, 0x79,
+	0x22, 0x78, 0x0a, 0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x47, 0x61, 0x74, 0x65, 0x41, 0x63, 0x6b,
+	0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04,
+	0x63, 0x6f, 0x64, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1d,
+	0x0a, 0x0a, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x1b, 0x0a,
+	0x09, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x08, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x49, 0x64, 0x22, 0xa0, 0x01, 0x0a, 0x0a, 0x53,
+	0x74, 0x72, 0x65, 0x61, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x65, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x73,
+	0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x19, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72,
+	0x5f, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x75, 0x73, 0x65, 0x72,
+	0x4b, 0x65, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x63, 0x6d, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05,
+	0x52, 0x03, 0x63, 0x6d, 0x64, 0x12, 0x15, 0x0a, 0x06, 0x73, 0x65, 0x71, 0x5f, 0x69, 0x64, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x73, 0x65, 0x71, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04,
+	0x64, 0x61, 0x74, 0x61, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61,
+	0x12, 0x1b, 0x0a, 0x09, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x70, 0x18, 0x06, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x70, 0x22, 0x5a, 0x0a,
+	0x0f, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
+	0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12,
+	0x16, 0x0a, 0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x11, 0x0a, 0x0f, 0x43, 0x6c, 0x6f,
+	0x73, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x41, 0x63, 0x6b, 0x22, 0x5b, 0x0a, 0x0e,
+	0x4b, 0x69, 0x63, 0x6b, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x1d,
+	0x0a, 0x0a, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x16, 0x0a,
+	0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72,
+	0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x22, 0x10, 0x0a, 0x0e, 0x4b, 0x69, 0x63,
+	0x6b, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x41, 0x63, 0x6b, 0x22, 0x56, 0x0a, 0x0f, 0x53,
+	0x65, 0x6e, 0x64, 0x54, 0x6f, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x12, 0x1d,
+	0x0a, 0x0a, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x10, 0x0a,
+	0x03, 0x63, 0x6d, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x63, 0x6d, 0x64, 0x12,
+	0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x6f, 0x43, 0x6c, 0x69,
+	0x65, 0x6e, 0x74, 0x41, 0x63, 0x6b, 0x22, 0x4f, 0x0a, 0x0c, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63,
+	0x61, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49,
+	0x64, 0x12, 0x10, 0x0a, 0x03, 0x63, 0x6d, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x03,
+	0x63, 0x6d, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x0e, 0x0a, 0x0c, 0x42, 0x72, 0x6f, 0x61, 0x64,
+	0x63, 0x61, 0x73, 0x74, 0x41, 0x63, 0x6b, 0x22, 0x37, 0x0a, 0x0f, 0x42, 0x72, 0x6f, 0x61, 0x64,
+	0x63, 0x61, 0x73, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x63, 0x6d,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x63, 0x6d, 0x64, 0x12, 0x12, 0x0a, 0x04,
+	0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61,
+	0x22, 0x11, 0x0a, 0x0f, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x41, 0x6c, 0x6c,
+	0x41, 0x63, 0x6b, 0x22, 0x48, 0x0a, 0x0c, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x52, 0x65, 0x71, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x49, 0x64, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x22, 0x45, 0x0a,
+	0x0c, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x63, 0x6b, 0x12, 0x12, 0x0a,
+	0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x63, 0x6f, 0x64,
+	0x65, 0x12, 0x21, 0x0a, 0x0c, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x5f, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x05, 0x52, 0x0b, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x43,
+	0x6f, 0x75, 0x6e, 0x74, 0x22, 0x49, 0x0a, 0x0d, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x52, 0x65, 0x71, 0x12, 0x1d, 0x0a, 0x0a, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x73, 0x65, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x49, 0x64, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64,
+	0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x64, 0x22,
+	0x46, 0x0a, 0x0d, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x63, 0x6b,
+	0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04,
+	0x63, 0x6f, 0x64, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x5f, 0x63,
+	0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x05, 0x52, 0x0b, 0x6d, 0x65, 0x6d, 0x62,
+	0x65, 0x72, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x2c, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x47, 0x72,
+	0x6f, 0x75, 0x70, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x72,
+	0x6f, 0x75, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72,
+	0x6f, 0x75, 0x70, 0x49, 0x64, 0x22, 0x70, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x63, 0x6b, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x72, 0x6f, 0x75,
+	0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x72, 0x6f, 0x75,
+	0x70, 0x49, 0x64, 0x12, 0x21, 0x0a, 0x0c, 0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x5f, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x6d, 0x65, 0x6d, 0x62, 0x65,
+	0x72, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x65, 0x73, 0x73, 0x69, 0x6f,
+	0x6e, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0a, 0x73, 0x65, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x73, 0x32, 0x47, 0x0a, 0x0d, 0x47, 0x61, 0x74, 0x65, 0x77,
+	0x61, 0x79, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x12, 0x36, 0x0a, 0x06, 0x6f, 0x6e, 0x44, 0x61,
+	0x74, 0x61, 0x12, 0x13, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x53, 0x74, 0x72,
+	0x65, 0x61, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x1a, 0x13, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61,
+	0x79, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x28, 0x01, 0x30, 0x01,
+	0x32, 0x8e, 0x04, 0x0a, 0x07, 0x47, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x12, 0x42, 0x0a, 0x0c,
+	0x43, 0x6c, 0x6f, 0x73, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x2e, 0x67,
+	0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x53, 0x65, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x1a, 0x18, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79,
+	0x2e, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x41, 0x63, 0x6b,
+	0x12, 0x3f, 0x0a, 0x0b, 0x4b, 0x69, 0x63, 0x6b, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12,
+	0x17, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x4b, 0x69, 0x63, 0x6b, 0x53, 0x65,
+	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x1a, 0x17, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77,
+	0x61, 0x79, 0x2e, 0x4b, 0x69, 0x63, 0x6b, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x41, 0x63,
+	0x6b, 0x12, 0x42, 0x0a, 0x0c, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x6f, 0x43, 0x6c, 0x69, 0x65, 0x6e,
+	0x74, 0x12, 0x18, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x53, 0x65, 0x6e, 0x64,
+	0x54, 0x6f, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x18, 0x2e, 0x67, 0x61,
+	0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x53, 0x65, 0x6e, 0x64, 0x54, 0x6f, 0x43, 0x6c, 0x69, 0x65,
+	0x6e, 0x74, 0x41, 0x63, 0x6b, 0x12, 0x39, 0x0a, 0x09, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63, 0x61,
+	0x73, 0x74, 0x12, 0x15, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x42, 0x72, 0x6f,
+	0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x15, 0x2e, 0x67, 0x61, 0x74, 0x65,
+	0x77, 0x61, 0x79, 0x2e, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x41, 0x63, 0x6b,
+	0x12, 0x42, 0x0a, 0x0c, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x41, 0x6c, 0x6c,
+	0x12, 0x18, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x42, 0x72, 0x6f, 0x61, 0x64,
+	0x63, 0x61, 0x73, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x18, 0x2e, 0x67, 0x61, 0x74,
+	0x65, 0x77, 0x61, 0x79, 0x2e, 0x42, 0x72, 0x6f, 0x61, 0x64, 0x63, 0x61, 0x73, 0x74, 0x41, 0x6c,
+	0x6c, 0x41, 0x63, 0x6b, 0x12, 0x39, 0x0a, 0x09, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x12, 0x15, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x4a, 0x6f, 0x69, 0x6e,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x1a, 0x15, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77,
+	0x61, 0x79, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x63, 0x6b, 0x12,
+	0x3c, 0x0a, 0x0a, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x16, 0x2e,
+	0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x52, 0x65, 0x71, 0x1a, 0x16, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e,
+	0x4c, 0x65, 0x61, 0x76, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x41, 0x63, 0x6b, 0x12, 0x42, 0x0a,
+	0x0c, 0x47, 0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x18, 0x2e,
+	0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x47, 0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x18, 0x2e, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61,
+	0x79, 0x2e, 0x47, 0x65, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x63,
+	0x6b, 0x42, 0x27, 0x5a, 0x25, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x73, 0x74, 0x72, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63,
+	0x6f, 0x6c, 0x2f, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -269,21 +1280,53 @@ func file_gateway_gateway_proto_rawDescGZIP() []byte {
 	return file_gateway_gateway_proto_rawDescData
 }
 
-var file_gateway_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_gateway_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_gateway_gateway_proto_goTypes = []interface{}{
-	(*MessageFrame)(nil), // 0: gateway.MessageFrame
-	(*StreamData)(nil),   // 1: gateway.StreamData
-	nil,                  // 2: gateway.StreamData.PayloadEntry
+	(*MessageFrame)(nil),    // 0: gateway.MessageFrame
+	(*LoginGateReq)(nil),    // 1: gateway.LoginGateReq
+	(*LoginGateAck)(nil),    // 2: gateway.LoginGateAck
+	(*StreamData)(nil),      // 3: gateway.StreamData
+	(*CloseSessionReq)(nil), // 4: gateway.CloseSessionReq
+	(*CloseSessionAck)(nil), // 5: gateway.CloseSessionAck
+	(*KickSessionReq)(nil),  // 6: gateway.KickSessionReq
+	(*KickSessionAck)(nil),  // 7: gateway.KickSessionAck
+	(*SendToClientReq)(nil), // 8: gateway.SendToClientReq
+	(*SendToClientAck)(nil), // 9: gateway.SendToClientAck
+	(*BroadcastReq)(nil),    // 10: gateway.BroadcastReq
+	(*BroadcastAck)(nil),    // 11: gateway.BroadcastAck
+	(*BroadcastAllReq)(nil), // 12: gateway.BroadcastAllReq
+	(*BroadcastAllAck)(nil), // 13: gateway.BroadcastAllAck
+	(*JoinGroupReq)(nil),    // 14: gateway.JoinGroupReq
+	(*JoinGroupAck)(nil),    // 15: gateway.JoinGroupAck
+	(*LeaveGroupReq)(nil),   // 16: gateway.LeaveGroupReq
+	(*LeaveGroupAck)(nil),   // 17: gateway.LeaveGroupAck
+	(*GetGroupInfoReq)(nil), // 18: gateway.GetGroupInfoReq
+	(*GetGroupInfoAck)(nil), // 19: gateway.GetGroupInfoAck
 }
 var file_gateway_gateway_proto_depIdxs = []int32{
-	2, // 0: gateway.StreamData.payload:type_name -> gateway.StreamData.PayloadEntry
-	1, // 1: gateway.GatewayStream.onData:input_type -> gateway.StreamData
-	1, // 2: gateway.GatewayStream.onData:output_type -> gateway.StreamData
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	3,  // 0: gateway.GatewayStream.onData:input_type -> gateway.StreamData
+	4,  // 1: gateway.Gateway.CloseSession:input_type -> gateway.CloseSessionReq
+	6,  // 2: gateway.Gateway.KickSession:input_type -> gateway.KickSessionReq
+	8,  // 3: gateway.Gateway.SendToClient:input_type -> gateway.SendToClientReq
+	10, // 4: gateway.Gateway.Broadcast:input_type -> gateway.BroadcastReq
+	12, // 5: gateway.Gateway.BroadcastAll:input_type -> gateway.BroadcastAllReq
+	14, // 6: gateway.Gateway.JoinGroup:input_type -> gateway.JoinGroupReq
+	16, // 7: gateway.Gateway.LeaveGroup:input_type -> gateway.LeaveGroupReq
+	18, // 8: gateway.Gateway.GetGroupInfo:input_type -> gateway.GetGroupInfoReq
+	3,  // 9: gateway.GatewayStream.onData:output_type -> gateway.StreamData
+	5,  // 10: gateway.Gateway.CloseSession:output_type -> gateway.CloseSessionAck
+	7,  // 11: gateway.Gateway.KickSession:output_type -> gateway.KickSessionAck
+	9,  // 12: gateway.Gateway.SendToClient:output_type -> gateway.SendToClientAck
+	11, // 13: gateway.Gateway.Broadcast:output_type -> gateway.BroadcastAck
+	13, // 14: gateway.Gateway.BroadcastAll:output_type -> gateway.BroadcastAllAck
+	15, // 15: gateway.Gateway.JoinGroup:output_type -> gateway.JoinGroupAck
+	17, // 16: gateway.Gateway.LeaveGroup:output_type -> gateway.LeaveGroupAck
+	19, // 17: gateway.Gateway.GetGroupInfo:output_type -> gateway.GetGroupInfoAck
+	9,  // [9:18] is the sub-list for method output_type
+	0,  // [0:9] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_gateway_gateway_proto_init() }
@@ -305,7 +1348,223 @@ func file_gateway_gateway_proto_init() {
 			}
 		}
 		file_gateway_gateway_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoginGateReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LoginGateAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*StreamData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CloseSessionReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CloseSessionAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*KickSessionReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*KickSessionAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendToClientReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendToClientAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BroadcastReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BroadcastAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BroadcastAllReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BroadcastAllAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*JoinGroupReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*JoinGroupAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LeaveGroupReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LeaveGroupAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetGroupInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gateway_gateway_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetGroupInfoAck); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -323,9 +1582,9 @@ func file_gateway_gateway_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_gateway_gateway_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   20,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   2,
 		},
 		GoTypes:           file_gateway_gateway_proto_goTypes,
 		DependencyIndexes: file_gateway_gateway_proto_depIdxs,
